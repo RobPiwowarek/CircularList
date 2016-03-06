@@ -5,6 +5,8 @@
 #include "Tests.h"
 
 int main(void){
-    
+CycleList list1, list2;
+
+
 
 }

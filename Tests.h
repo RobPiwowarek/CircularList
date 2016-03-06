@@ -5,13 +5,14 @@
 #ifndef CYCLELIST_TESTS_H
 #define CYCLELIST_TESTS_H
 
+#include "CycleList.h"
 
 class Tests {
 public:
-    bool addTest();
-    bool removeTest();
-    bool getTest();
-    bool opTest();
+    bool addTest(CycleList);
+    bool removeTest(CycleList);
+    bool getTest(CycleList);
+    bool opTest(CycleList);
 
 };
 
