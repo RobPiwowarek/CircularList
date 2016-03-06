@@ -21,47 +21,79 @@ bool Tests::shouldAddAtStart() {
 
 bool Tests::shouldAddAfterVal() {
     CycleList *list = new CycleList();,
-    CycleList *temp;
-    bool passed = true;
-    (*list).add(5);
-    (*list).add(6);
-    (*list).add(7);
-    (*list).add(8, 6);
+    list->add(5);
+    list->add(6);
+    list->add(7);
+    list->add(8, 6);
 
-    temp = list;
-
-    // testing standard case
-    while (temp->value != 6) {
-        temp = temp->next;
+    while (list->value != 6) {
+        list = list->next;
     }
 
-    if (temp->next->value != 8) {
-        passed = false;
-        printf("shouldAddAfterVal - list.next->value = %d, expected 8\n", temp->next->value);
+    if (list->next->value != 8){
+        printf("shouldAddAfterVal - list.next->value = %d, expected 8\n", list->next->value);
+        return false;
     }
 
-    // testing edge case (second argument not present in list)
+    return true;
+}
+
+bool Tests::shouldAddAtTheEndIfNoValFound() {
+    CycleList *list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(7);
+
     list->add(2, 10); // if 10 isn't there, should put 2 at the end of list
     if (list->prev->value != 2) {
         printf("shouldAddAfterVal - 2 not at the end of the list\n");
-        passed = false;
-    }
-
-    if (passed) {
-        printf("shouldAddAfterVal - passed\n");
-        return true;
-    }
-    else {
-        printf("shouldAddAfterVal - failed\n");
         return false;
     }
+
+    return true;
 }
 
 bool Tests::shouldAddOnIndex() {
-    return true;    
+    CycleList list;
+    list.add(5);
+    list.add(6);
+    list.add(7);
+
+    list.addOnIndex(8, 2);
+    while (list.value != 8){
+        list = *list.next;
+    }
+
+    if (list.index != 2){
+        printf("shouldAddOnIndex - index mismatch: expected 2 got %d\n", list.index);
+        return false;
+    }
+
+    return true;
 }
 
 bool Tests::shouldRemove() {
+    CycleList list;
+    list.add(5);
+    list.add(6);
+    list.add(7);
+
+    int temp = list.remove(2);
+
+    if (temp != 7 || list.get(2) == 7)
+        return false;
+
+    return true;
+}
+
+bool Tests::shouldRemoveByValueRange() {
+    CycleList list;
+    list.add(5);
+    list.add(6);
+    list.add(7);
+
+    
+
     return true;
 }
 
@@ -87,6 +119,13 @@ bool Tests::shouldGet() {
 
 bool Tests::shouldCompare() {
     return true;
+}
+
+void Tests::assert(bool val) {
+    if (val)
+        printf(" passed\n");
+    else
+        printf(" failed\n");
 }
 
 int main(void) {

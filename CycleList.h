@@ -10,6 +10,7 @@ class CycleList {
 public:
     int value;
     int size; // number of elements
+    int index;
     CycleList *next;
     CycleList *prev;
     static CycleList *start;

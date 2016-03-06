@@ -13,11 +13,15 @@ public:
 
     bool shouldAddAfterVal();
 
+    bool shouldAddAtTheEndIfNoValFound();
+
     bool shouldAddOnIndex();
 
     bool shouldRemove();
 
     bool shouldRemoveAll();
+
+    bool shouldRemoveByValueRange();
 
     bool shouldRemoveByValue();
 
@@ -28,6 +32,8 @@ public:
     bool shouldGet();
 
     bool shouldCompare();
+
+    void assert(bool val);
 };
 
 
