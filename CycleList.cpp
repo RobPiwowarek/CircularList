@@ -12,6 +12,19 @@ CycleList::~CycleList() {
 
 }
 
+CycleList::CycleList(CycleList list) {
+
+}
+
+void CycleList::add(int val) {
+
+}
+
+void CycleList::add(int val1, int val2) {
+
+}
+
+
 bool CycleList::addOnIndex(int val, int index) {
     return false;
 }

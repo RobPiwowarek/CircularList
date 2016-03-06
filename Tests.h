@@ -9,11 +9,16 @@
 
 class Tests {
 public:
-    bool addTest(CycleList);
-    bool removeTest(CycleList);
-    bool getTest(CycleList);
-    bool opTest(CycleList);
-
+    bool shouldAddAtStart(CycleList);
+    bool shouldAddAfterVal(CycleList);
+    bool shouldAddOnIndex(CycleList);
+    bool shouldRemove(CycleList);
+    bool shouldRemoveAll(CycleList);
+    bool shouldRemoveByValue(CycleList);
+    bool shouldRemoveDuplicates(CycleList);
+    bool shouldRemoveByIndexRange(CycleList);
+    bool shouldGet(CycleList);
+    bool shouldCompare();
 };
 
 
