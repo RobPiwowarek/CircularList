@@ -42,6 +42,7 @@ public:
     int operator+(int val); // add(val)
     int operator[](int index); // access by index
     bool operator==(CycleList list); // compare
+    bool operator!=(CycleList list); // compare
     bool operator<=(CycleList list); // length <=
     bool operator<(CycleList list);
 

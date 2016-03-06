@@ -9,31 +9,35 @@
 
 class Tests {
 public:
-    bool shouldAddAtStart();
+    static bool shouldAddAtStart();
 
-    bool shouldAddAfterVal();
+    static bool shouldAddAfterVal();
 
-    bool shouldAddAtTheEndIfNoValFound();
+    static bool shouldAddAtTheEndIfNoValFound();
 
-    bool shouldAddOnIndex();
+    static bool shouldAddOnIndex();
 
-    bool shouldRemove();
+    static bool shouldRemove();
 
-    bool shouldRemoveAll();
+    static bool shouldRemoveAll();
 
-    bool shouldRemoveByValueRange();
+    static bool shouldRemoveByValueRange();
 
-    bool shouldRemoveByValue();
+    static bool shouldRemoveByValue();
 
-    bool shouldRemoveDuplicates();
+    static bool shouldRemoveDuplicates();
 
-    bool shouldRemoveByIndexRange();
+    static bool shouldRemoveByIndexRange();
 
-    bool shouldGet();
+    static bool shouldGet();
 
-    bool shouldCompare();
+    static bool shouldBeEqual();
 
-    void assert(bool val);
+    static bool shouldBeSmaller();
+
+    static bool shouldBeBigger();
+
+    static void assert(static bool val);
 };
 
 

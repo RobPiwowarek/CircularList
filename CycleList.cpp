@@ -77,6 +77,10 @@ bool CycleList::operator==(CycleList list) {
     return false;
 }
 
+bool CycleList::operator!=(CycleList list) {
+    return false;
+}
+
 bool CycleList::operator<=(CycleList list) {
     return false;
 }
