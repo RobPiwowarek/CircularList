@@ -91,21 +91,66 @@ bool Tests::shouldRemoveByValueRange() {
     list.add(5);
     list.add(6);
     list.add(7);
+    list.add(9);
+    list.add(10);
 
-    
+    list.remove(6, 9); // nooooooo!
 
-    return true;
+    if (list.value == 5 && list.next->value == 10)
+        return true;
+
+    return false;
 }
 
 bool Tests::shouldRemoveAll() {
+    CycleList list, *temp;
+    list.add(5);
+    list.add(6);
+    list.add(5);
+    list.add(9);
+    list.add(5);
+
+    list.removeAll(5);
+
+    temp = list.next;
+    while (temp != &list){
+        if (temp->value == 5)
+            return false;
+
+        temp = temp->next;
+    }
+
     return true;
 }
 
 bool Tests::shouldRemoveByValue() {
+    CycleList list;
+    list.add(5);
+    list.add(6);
+    list.add(5);
+    list.add(9);
+    list.add(5);
+
+    list.removeByValue(5);
+
+    if (list.value != 6 || list.next->value != 5)
+        return false;
+
     return true;
 }
 
 bool Tests::shouldRemoveDuplicates() {
+    CycleList list;
+    list.add(5);
+    list.add(6);
+    list.add(5);
+    list.add(6);
+    list.add(5);
+
+    list.removeDuplicates();
+
+    if (list.value != 5 || list.next->value != 6 || list.next->next != &list) return false;
+
     return true;
 }
 
@@ -129,7 +174,6 @@ void Tests::assert(bool val) {
 }
 
 int main(void) {
-    CycleList list1, list2;
 
 
 }
