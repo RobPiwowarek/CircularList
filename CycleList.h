@@ -9,12 +9,15 @@ class CycleList {
 
 public:
     int value;
+    int size; // number of elements
     CycleList *next;
     CycleList *prev;
     static CycleList *start;
 
     CycleList();
+
     CycleList(CycleList list);
+
     ~CycleList();
 
     void add(int val); // add at the beginning of the list
@@ -26,9 +29,11 @@ public:
     void removeAll(int val); // remove all given values from list
     void removeByValue(int val); // (first appearance)
     void removeDuplicates();
+
     bool removeByIndexRange(int index1, int index2); // remove values between indexes (index1, index2);
 
     int get(int index);
+
     int length();
 
     bool compare(CycleList list); // returns true if equal, false otherwise
@@ -38,8 +43,11 @@ public:
     bool operator==(CycleList list); // compare
     bool operator<=(CycleList list); // length <=
     bool operator<(CycleList list);
+
     bool operator>=(CycleList list);
+
     bool operator>(CycleList list);
+
     void operator-(int val); // remove by index
     CycleList operator+(CycleList list); // merge()
     CycleList operator-(CycleList list); // subtract()

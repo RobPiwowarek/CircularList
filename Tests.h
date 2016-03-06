@@ -9,15 +9,24 @@
 
 class Tests {
 public:
-    bool shouldAddAtStart(CycleList);
-    bool shouldAddAfterVal(CycleList);
-    bool shouldAddOnIndex(CycleList);
-    bool shouldRemove(CycleList);
-    bool shouldRemoveAll(CycleList);
-    bool shouldRemoveByValue(CycleList);
-    bool shouldRemoveDuplicates(CycleList);
-    bool shouldRemoveByIndexRange(CycleList);
-    bool shouldGet(CycleList);
+    bool shouldAddAtStart();
+
+    bool shouldAddAfterVal();
+
+    bool shouldAddOnIndex();
+
+    bool shouldRemove();
+
+    bool shouldRemoveAll();
+
+    bool shouldRemoveByValue();
+
+    bool shouldRemoveDuplicates();
+
+    bool shouldRemoveByIndexRange();
+
+    bool shouldGet();
+
     bool shouldCompare();
 };
 
