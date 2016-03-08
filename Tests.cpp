@@ -3,7 +3,6 @@
 //
 
 #include "Tests.h"
-#include <iostream>
 
 using namespace std;
 
@@ -23,10 +22,10 @@ bool Tests::shouldAddAfterVal() {
     list->add(7);
     list->add(8, 6);
 
-    Node* temp = list->first;
+    Node *temp = list->first;
 
-    for (int i = 0; i < list->size; i++){
-        if (temp->value == 6){
+    for (int i = 0; i < list->size; i++) {
+        if (temp->value == 6) {
             if (temp->next->value != 8) {
                 cout << " shouldAddAfterVal - list.next->value = " << temp->next->value << ", expected 8" << endl;
                 return false;

@@ -7,6 +7,13 @@
 
 #include <iostream>
 
+class Node {
+public:
+    Node *next;
+    Node *prev;
+    int value;
+};
+
 class CycleList {
 
 public:
@@ -21,7 +28,7 @@ public:
 
     void add(int val); // add at the beginning of the list
     void add(int val1, int val2); // add val1 to list after the first appearance of val2
-    bool addOnIndex(int val, int index); // add val on given index (returns false if list isn't long enough)
+    void addOnIndex(int val, int index); // add val on given index (returns false if list isn't long enough)
 
     int remove(int index); // remove element by index, returns removed value
     void remove(int val1, int val2); // remove by range <val1, val2> or <val2, val1>
@@ -59,11 +66,6 @@ private:
     CycleList subtract(CycleList list); // subtract one list from this list
 };
 
-class Node {
-public:
-    Node *next;
-    Node *prev;
-    int value;
-};
+
 
 #endif //CYCLELIST_CYCLELIST_H
