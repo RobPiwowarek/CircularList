@@ -4,6 +4,7 @@
 
 #include "Tests.h"
 #include <iostream>
+
 using namespace std;
 
 bool Tests::shouldAddAtStart() {
@@ -11,9 +12,8 @@ bool Tests::shouldAddAtStart() {
 
     list.add(5);
 
-    if (list[0]->value != 5) return false;
+    return list.first->value == 5;
 
-    return true;
 }
 
 bool Tests::shouldAddAfterVal() {
@@ -23,13 +23,17 @@ bool Tests::shouldAddAfterVal() {
     list->add(7);
     list->add(8, 6);
 
-    while (list->value != 6) {
-        list = list->next;
-    }
+    Node* temp = list->first;
 
-    if (list->next->value != 8) {
-        cout << " shouldAddAfterVal - list.next->value = " << list->next->value << ", expected 8" << endl;
-        return false;
+    for (int i = 0; i < list->size; i++){
+        if (temp->value == 6){
+            if (temp->next->value != 8) {
+                cout << " shouldAddAfterVal - list.next->value = " << temp->next->value << ", expected 8" << endl;
+                return false;
+            }
+        }
+
+        temp = temp->next;
     }
 
     return true;
@@ -42,7 +46,7 @@ bool Tests::shouldAddAtTheEndIfNoValFound() {
     list->add(7);
 
     list->add(2, 10); // if 10 isn't there, should put 2 at the end of list
-    if (list->prev->value != 2) {
+    if (list->first->prev->value != 2) {
         cout << " shouldAddAfterVal - 2 not at the end of the list" << endl;
         return false;
     }
@@ -57,12 +61,9 @@ bool Tests::shouldAddOnIndex() {
     list.add(7);
 
     list.addOnIndex(8, 2);
-    while (list.value != 8) {
-        list = *list.next;
-    }
 
-    if (list.index != 2) {
-        cout << " shouldAddOnIndex - index mismatch: expected 2 got " << list.index << endl;
+    if (list[2] != 8) {
+        cout << " shouldAddOnIndex - index mismatch: expected 2 got " << list[2] << endl;
         return false;
     }
 
@@ -77,10 +78,7 @@ bool Tests::shouldRemove() {
 
     int temp = list.remove(2);
 
-    if (temp != 7 || list.get(2) == 7)
-        return false;
-
-    return true;
+    return !(temp != 7 || list.get(2) == 7);
 }
 
 bool Tests::shouldRemoveByValueRange() {
@@ -93,14 +91,12 @@ bool Tests::shouldRemoveByValueRange() {
 
     list.remove(6, 9); // nooooooo!
 
-    if (list.value == 5 && list.next->value == 10)
-        return true;
-
-    return false;
+    return list.first->value == 5 && list.first->next->value == 10;
 }
 
 bool Tests::shouldRemoveAll() {
-    CycleList list, *temp;
+    CycleList list;
+    Node *temp;
     list.add(5);
     list.add(6);
     list.add(5);
@@ -109,8 +105,13 @@ bool Tests::shouldRemoveAll() {
 
     list.removeAll(5);
 
-    temp = list.next;
-    while (temp != &list) {
+    temp = list.first;
+
+    if (temp->value == 5) return false;
+
+    temp = temp->next;
+
+    while (temp != list.first) {
         if (temp->value == 5)
             return false;
 
@@ -130,10 +131,7 @@ bool Tests::shouldRemoveByValue() {
 
     list.removeByValue(5);
 
-    if (list.value != 6 || list.next->value != 5)
-        return false;
-
-    return true;
+    return !(list.first->value != 6 || list.first->next->value != 5);
 }
 
 bool Tests::shouldRemoveDuplicates() {
@@ -146,9 +144,8 @@ bool Tests::shouldRemoveDuplicates() {
 
     list.removeDuplicates();
 
-    if (list.value != 5 || list.next->value != 6 || list.next->next != &list) return false;
+    return !(list.first->value != 5 || list.first->next->value != 6 || list.first->next->next != list.first);
 
-    return true;
 }
 
 bool Tests::shouldRemoveByIndexRange() {
@@ -161,10 +158,7 @@ bool Tests::shouldRemoveByIndexRange() {
 
     list.removeByIndexRange(1, 3);
 
-    if (list.value != 5 || list.next->value != 10)
-        return false;
-
-    return true;
+    return !(list.first->value != 5 || list.first->value != 10);
 }
 
 bool Tests::shouldGet() {
@@ -173,9 +167,7 @@ bool Tests::shouldGet() {
     list.add(6);
     list.add(7);
 
-    if (list.get(-2) == 7 && list.get(2) == 7) return true;
-
-    return false;
+    return list.get(-2) == 7 && list.get(2) == 7;
 }
 
 bool Tests::shouldBeEqual() {
@@ -185,9 +177,8 @@ bool Tests::shouldBeEqual() {
     list2.add(2);
     list2.add(5);
 
-    if (list1 != list2) return false;
+    return !(list1 != list2);
 
-    return true;
 }
 
 bool Tests::shouldBeSmaller() {
@@ -198,9 +189,8 @@ bool Tests::shouldBeSmaller() {
     list2.add(6);
     list2.add(7);
 
-    if (!(list1 < list2) || !(list1 <= list2)) return false;
+    return !(!(list1 < list2) || !(list1 <= list2));
 
-    return true;
 }
 
 bool Tests::shouldBeBigger() {
@@ -211,9 +201,8 @@ bool Tests::shouldBeBigger() {
     list2.add(6);
     list2.add(7);
 
-    if ((list1 < list2) || list1 <= list2) return false;
+    return !((list1 < list2) || list1 <= list2);
 
-    return true;
 }
 
 void Tests::assert(bool val) {

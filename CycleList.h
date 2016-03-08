@@ -5,14 +5,13 @@
 #ifndef CYCLELIST_CYCLELIST_H
 #define CYCLELIST_CYCLELIST_H
 
+#include <iostream>
+
 class CycleList {
 
 public:
-    int value;
-    int size; // number of elements
-    int index;
-    CycleList *next;
-    CycleList *prev;
+    Node *first;
+    int size;
 
     CycleList();
 
@@ -32,9 +31,9 @@ public:
 
     bool removeByIndexRange(int index1, int index2); // remove values between indexes (index1, index2);
 
-    int get(int index);
+    const int get(int index) const;
 
-    int length();
+    const int length() const;
 
     bool compare(CycleList list); // returns true if equal, false otherwise
 
@@ -43,11 +42,14 @@ public:
     bool operator!=(CycleList list); // compare
     bool operator<=(CycleList list); // length <=
     bool operator<(CycleList list);
+
     bool operator>=(CycleList list);
+
     bool operator>(CycleList list);
+
     void operator-(int val); // remove by index
 
-    CycleList* operator[](int index); // access by index
+    int operator[](int index); // access by index
     CycleList operator+(CycleList list); // merge()
     CycleList operator-(CycleList list); // subtract()
     CycleList operator=(CycleList list); // copy
@@ -55,6 +57,13 @@ public:
 private:
     CycleList merge(CycleList list); // merge list with this list
     CycleList subtract(CycleList list); // subtract one list from this list
+};
+
+class Node {
+public:
+    Node *next;
+    Node *prev;
+    int value;
 };
 
 #endif //CYCLELIST_CYCLELIST_H
