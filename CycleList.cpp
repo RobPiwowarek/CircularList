@@ -12,7 +12,7 @@ CycleList::~CycleList() {
 
 }
 
-CycleList::CycleList(CycleList list) {
+CycleList::CycleList(const CycleList& list) {
 
 }
 
@@ -69,7 +69,7 @@ int CycleList::operator+(int val) {
     return 0;
 }
 
-int CycleList::operator[](int index) {
+CycleList* CycleList::operator[](int index) {
     return 0;
 }
 

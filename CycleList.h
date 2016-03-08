@@ -13,11 +13,10 @@ public:
     int index;
     CycleList *next;
     CycleList *prev;
-    static CycleList *start;
 
     CycleList();
 
-    CycleList(CycleList list);
+    CycleList(const CycleList &list);
 
     ~CycleList();
 
@@ -40,17 +39,15 @@ public:
     bool compare(CycleList list); // returns true if equal, false otherwise
 
     int operator+(int val); // add(val)
-    int operator[](int index); // access by index
     bool operator==(CycleList list); // compare
     bool operator!=(CycleList list); // compare
     bool operator<=(CycleList list); // length <=
     bool operator<(CycleList list);
-
     bool operator>=(CycleList list);
-
     bool operator>(CycleList list);
-
     void operator-(int val); // remove by index
+
+    CycleList* operator[](int index); // access by index
     CycleList operator+(CycleList list); // merge()
     CycleList operator-(CycleList list); // subtract()
     CycleList operator=(CycleList list); // copy

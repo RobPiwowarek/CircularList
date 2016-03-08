@@ -37,7 +37,7 @@ public:
 
     static bool shouldBeBigger();
 
-    static void assert(static bool val);
+    static void assert(bool val);
 };
 
 

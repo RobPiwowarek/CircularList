@@ -3,20 +3,21 @@
 //
 
 #include "Tests.h"
-#include "stdio.h"
+#include <iostream>
+using namespace std;
 
-static bool Tests::shouldAddAtStart() {
+bool Tests::shouldAddAtStart() {
     CycleList list;
 
     list.add(5);
 
-    if (list.start->value != 5) return false;
+    if (list[0]->value != 5) return false;
 
     return true;
 }
 
-static bool Tests::shouldAddAfterVal() {
-    CycleList *list = new CycleList();,
+bool Tests::shouldAddAfterVal() {
+    CycleList *list = new CycleList();
     list->add(5);
     list->add(6);
     list->add(7);
@@ -27,14 +28,14 @@ static bool Tests::shouldAddAfterVal() {
     }
 
     if (list->next->value != 8) {
-        printf(" shouldAddAfterVal - list.next->value = %d, expected 8\n", list->next->value);
+        cout << " shouldAddAfterVal - list.next->value = " << list->next->value << ", expected 8" << endl;
         return false;
     }
 
     return true;
 }
 
-static bool Tests::shouldAddAtTheEndIfNoValFound() {
+bool Tests::shouldAddAtTheEndIfNoValFound() {
     CycleList *list = new CycleList();
     list->add(5);
     list->add(6);
@@ -42,14 +43,14 @@ static bool Tests::shouldAddAtTheEndIfNoValFound() {
 
     list->add(2, 10); // if 10 isn't there, should put 2 at the end of list
     if (list->prev->value != 2) {
-        printf(" shouldAddAfterVal - 2 not at the end of the list\n");
+        cout << " shouldAddAfterVal - 2 not at the end of the list" << endl;
         return false;
     }
 
     return true;
 }
 
-static bool Tests::shouldAddOnIndex() {
+bool Tests::shouldAddOnIndex() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -61,14 +62,14 @@ static bool Tests::shouldAddOnIndex() {
     }
 
     if (list.index != 2) {
-        printf(" shouldAddOnIndex - index mismatch: expected 2 got %d\n", list.index);
+        cout << " shouldAddOnIndex - index mismatch: expected 2 got " << list.index << endl;
         return false;
     }
 
     return true;
 }
 
-static bool Tests::shouldRemove() {
+bool Tests::shouldRemove() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -82,7 +83,7 @@ static bool Tests::shouldRemove() {
     return true;
 }
 
-static bool Tests::shouldRemoveByValueRange() {
+bool Tests::shouldRemoveByValueRange() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -98,7 +99,7 @@ static bool Tests::shouldRemoveByValueRange() {
     return false;
 }
 
-static bool Tests::shouldRemoveAll() {
+bool Tests::shouldRemoveAll() {
     CycleList list, *temp;
     list.add(5);
     list.add(6);
@@ -119,7 +120,7 @@ static bool Tests::shouldRemoveAll() {
     return true;
 }
 
-static bool Tests::shouldRemoveByValue() {
+bool Tests::shouldRemoveByValue() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -135,7 +136,7 @@ static bool Tests::shouldRemoveByValue() {
     return true;
 }
 
-static bool Tests::shouldRemoveDuplicates() {
+bool Tests::shouldRemoveDuplicates() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -150,7 +151,7 @@ static bool Tests::shouldRemoveDuplicates() {
     return true;
 }
 
-static bool Tests::shouldRemoveByIndexRange() {
+bool Tests::shouldRemoveByIndexRange() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -166,7 +167,7 @@ static bool Tests::shouldRemoveByIndexRange() {
     return true;
 }
 
-static bool Tests::shouldGet() {
+bool Tests::shouldGet() {
     CycleList list;
     list.add(5);
     list.add(6);
@@ -177,7 +178,7 @@ static bool Tests::shouldGet() {
     return false;
 }
 
-static bool Tests::shouldBeEqual() {
+bool Tests::shouldBeEqual() {
     CycleList list1, list2;
     list1.add(2);
     list1.add(5);
@@ -189,7 +190,7 @@ static bool Tests::shouldBeEqual() {
     return true;
 }
 
-static bool Tests::shouldBeSmaller() {
+bool Tests::shouldBeSmaller() {
     CycleList list1, list2;
     list1.add(2);
     list1.add(3);
@@ -202,7 +203,7 @@ static bool Tests::shouldBeSmaller() {
     return true;
 }
 
-static bool Tests::shouldBeBigger() {
+bool Tests::shouldBeBigger() {
     CycleList list1, list2;
     list1.add(2);
     list1.add(3);
@@ -215,41 +216,42 @@ static bool Tests::shouldBeBigger() {
     return true;
 }
 
-static void Tests::assert(bool val) {
+void Tests::assert(bool val) {
+
     if (val)
-        printf(" passed\n");
+        cout << " passed" << endl;
     else
-        printf(" failed\n");
+        cout << " failed" << endl;
 }
 
 int main(void) {
-    printf(">>>>>>>>>TESTING START<<<<<<<<<<<\n");
-    printf("shouldAddAtStart -");
+    cout << ">>>>>>>>>TESTING START<<<<<<<<<<<" << endl;
+    cout << "shouldAddAtStart -";
     Tests::assert(Tests::shouldAddAtStart());
-    printf("shouldAddAfterVal -");
+    cout << "shouldAddAfterVal -";
     Tests::assert(Tests::shouldAddAfterVal());
-    printf("shouldAddAtTheEndIfNoValFound -");
+    cout << "shouldAddAtTheEndIfNoValFound -";
     Tests::assert(Tests::shouldAddAtTheEndIfNoValFound());
-    printf("shouldAddOnIndex -");
+    cout << "shouldAddOnIndex -";
     Tests::assert(Tests::shouldAddOnIndex());
-    printf("shouldRemove -");
+    cout << "shouldRemove -";
     Tests::assert(Tests::shouldRemove());
-    printf("shouldRemoveAll -");
+    cout << "shouldRemoveAll -";
     Tests::assert(Tests::shouldRemoveAll());
-    printf("shouldRemoveByValueRange -");
+    cout << "shouldRemoveByValueRange -";
     Tests::assert(Tests::shouldRemoveByValueRange());
-    printf("shouldRemoveByValue -");
+    cout << "shouldRemoveByValue -";
     Tests::assert(Tests::shouldRemoveByValue());
-    printf("shouldRemoveDuplicates -");
+    cout << "shouldRemoveDuplicates -";
     Tests::assert(Tests::shouldRemoveDuplicates());
-    printf("shouldRemoveByIndexRange -");
+    cout << "shouldRemoveByIndexRange -";
     Tests::assert(Tests::shouldRemoveByIndexRange());
-    printf("shouldGet -");
+    cout << "shouldGet -";
     Tests::assert(Tests::shouldGet());
-    printf("shouldBeEqual -");
+    cout << "shouldBeEqual -";
     Tests::assert(Tests::shouldBeEqual());
-    printf("shouldBeSmaller -");
+    cout << "shouldBeSmaller -";
     Tests::assert(Tests::shouldBeSmaller());
-    printf("shouldBeBigger -");
+    cout << "shouldBeBigger -";
     Tests::assert(Tests::shouldBeBigger());
 }
