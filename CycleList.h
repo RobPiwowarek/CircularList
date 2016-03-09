@@ -31,7 +31,7 @@ public:
     void addOnIndex(int val, int index); // add val on given index (returns false if list isn't long enough)
 
     int remove(int index); // remove element by index, returns removed value
-    void remove(int val1, int val2); // remove by range <val1, val2> or <val2, val1>
+    void remove(int val1, int val2); // remove by value range <val1, val2> or <val2, val1>
     void removeAll(int val); // remove all given values from list
     void removeByValue(int val); // (first appearance)
     void removeDuplicates();
@@ -42,9 +42,9 @@ public:
 
     const int length() const;
 
-    bool compare(CycleList list); // returns true if equal, false otherwise
+    bool isEqual(CycleList list); // returns true if equal, false otherwise
 
-    int operator+(int val); // add(val)
+    void operator+=(int val); // add(val)
     bool operator==(CycleList list); // compare
     bool operator!=(CycleList list); // compare
     bool operator<=(CycleList list); // length <=
@@ -54,7 +54,7 @@ public:
 
     bool operator>(CycleList list);
 
-    void operator-(int val); // remove by index
+    int operator-=(int index); // remove by index
 
     int operator[](int index); // access by index
     CycleList operator+(CycleList list); // merge()
@@ -62,6 +62,7 @@ public:
     CycleList operator=(CycleList list); // copy
 
 private:
+    void removeAll(); // deletes every node
     CycleList merge(CycleList list); // merge list with this list
     CycleList subtract(CycleList list); // subtract one list from this list
 };
