@@ -7,11 +7,11 @@
 using namespace std;
 
 bool Tests::shouldAddAtStart() {
-    CycleList list;
+    CycleList *list = new CycleList();
 
-    list.add(5);
+    list->add(5);
 
-    return list.first->value == 5;
+    return list->first->value == 5;
 
 }
 
@@ -62,7 +62,7 @@ bool Tests::shouldAddOnIndex() {
     list.addOnIndex(8, 2);
 
     if (list[2] != 8) {
-        cout << " shouldAddOnIndex - index mismatch: expected 2 got " << list[2] << endl;
+        cout << " shouldAddOnIndex - expected 8 got " << list[2] << endl;
         return false;
     }
 

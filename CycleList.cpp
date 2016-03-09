@@ -10,11 +10,11 @@ CycleList::CycleList() {
 }
 
 CycleList::~CycleList() {
-    removeAll();
+    this->removeAll();
 }
 
 CycleList::CycleList(const CycleList &list) {
-    removeAll();
+    this->removeAll();
 
     this->first = list.first;
     for (int i = 1; i < list.size; i++) {
@@ -23,12 +23,12 @@ CycleList::CycleList(const CycleList &list) {
 }
 
 void CycleList::removeAll() {
-    Node *temp, *temp2;
-    temp = temp2 = this->first->next;
+    Node *temp2;
+    temp2 = this->first->next;
 
-    while (temp != this->first) {
-        temp = temp2->next;
-        delete temp2;
+    for (int i = 0; i < this->size; i++) {
+        delete temp2->prev;
+        temp2 = temp2->next;
     }
 
     this->size = 0;
@@ -37,22 +37,32 @@ void CycleList::removeAll() {
 
 void CycleList::add(int val) {
     Node *_new = new Node();
-    this->size++;
-
-    this->first->prev->next = _new;
-    _new->prev = this->first->prev;
-    this->first->prev = _new;
-    _new->next = this->first;
-
     _new->value = val;
+
+    if (this->size == 0) {
+        _new->next = _new;
+        _new->prev = _new;
+        _new->value = val;
+        this->first = _new;
+    }
+    else {
+        std::cout << this->first << " " << this->first->value << " " << this->first->prev << std::endl;
+
+        this->first->prev->next = _new;
+        _new->prev = this->first->prev;
+        this->first->prev = _new;
+        _new->next = this->first;
+    }
+
+    this->size++;
 }
 
-// todo: look for way to change assigning
+// todo: look for a way to change assigning
 void CycleList::add(int val1, int val2) {
     Node *temp = this->first;
 
-    for (int i = 0; i < this->size; i++){
-        if (temp->value == val2){
+    for (int i = 0; i < this->size; i++) {
+        if (temp->value == val2) {
             Node *_new = new Node();
             Node *temp2 = temp->next;
 
@@ -64,6 +74,7 @@ void CycleList::add(int val1, int val2) {
             temp2->prev = _new;
 
             this->size++;
+            return;
         }
         temp = temp->next;
     }
@@ -72,7 +83,7 @@ void CycleList::add(int val1, int val2) {
 
 // todo: like before
 void CycleList::addOnIndex(int val, int index) {
-    if (index >= this->size){
+    if (index >= this->size) {
         std::cout << "CycleList::addOnIndex: IndexOutOfBoundException" << std::endl;
         exit(600);
     }
@@ -82,7 +93,7 @@ void CycleList::addOnIndex(int val, int index) {
     Node *_new = new Node();
     _new->value = val;
 
-    for (int i = 0; i < index; i++){
+    for (int i = 0; i < index - 1; i++) {
         temp = temp->next;
     }
 
@@ -97,12 +108,19 @@ void CycleList::addOnIndex(int val, int index) {
 }
 
 int CycleList::remove(int index) {
-    Node* temp;
+    Node *temp;
     int temp_val;
+
+    //std::cout << std::endl << index << " " << this->size << std::endl;
+
+    if (index > this->size) {
+        std::cout << "int CycleList::remove: IndexOutOfBoundException" << std::endl;
+        exit(600);
+    }
 
     temp = this->first;
 
-    for (int i = 0; i < index; i++){
+    for (int i = 0; i < index; i++) {
         temp = temp->next;
     }
 
@@ -121,14 +139,14 @@ int CycleList::remove(int index) {
 void CycleList::remove(int min, int max) {
     if (max < min) return;
 
-    Node* temp;
+    Node *temp;
     temp = this->first;
 
-    for (int i = 0; i < this->size; i++){
-        if (temp->value >= min && temp->value <= max){
+    for (int i = 0; i < this->size; i++) {
+        if (temp->value >= min && temp->value <= max) {
             temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
-            Node* _temp = temp;
+            Node *_temp = temp;
             temp = temp->prev;
             delete _temp;
             this->size--;
@@ -139,13 +157,13 @@ void CycleList::remove(int min, int max) {
 }
 
 void CycleList::removeAll(int val) {
-    Node* temp = this->first;
+    Node *temp = this->first;
 
-    for (int i = 0; i < this->size; i++){
-        if (temp->value == val){
+    for (int i = 0; i < this->size; i++) {
+        if (temp->value == val) {
             temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
-            Node* _temp = temp;
+            Node *_temp = temp;
             temp = temp->prev;
             delete _temp;
             this->size--;
@@ -158,10 +176,10 @@ void CycleList::removeAll(int val) {
 }
 
 void CycleList::removeByValue(int val) {
-    Node* temp = this->first;
+    Node *temp = this->first;
 
-    for (int i = 0; i < this->size; i++){
-        if (temp->value == val){
+    for (int i = 0; i < this->size; i++) {
+        if (temp->value == val) {
             temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
             delete temp;
@@ -174,16 +192,16 @@ void CycleList::removeByValue(int val) {
 }
 
 void CycleList::removeDuplicates() {
-    Node* temp = this->first;
+    Node *temp = this->first;
 
-    for (int i = 0; i < this->size; i++){
-        Node* temp2 = temp->next;
-        for (int j = i+1; j < this->size; j++){
-            if (temp2->value == temp->value){
+    for (int i = 0; i < this->size; i++) {
+        Node *temp2 = temp->next;
+        for (int j = i + 1; j < this->size; j++) {
+            if (temp2->value == temp->value) {
                 temp2->prev->next = temp2->next;
                 temp2->next->prev = temp2->prev;
 
-                Node* _temp = temp2;
+                Node *_temp = temp2;
                 temp2 = temp2->prev;
                 j--;
 
@@ -205,7 +223,7 @@ bool CycleList::removeByIndexRange(int index1, int index2) {
     if (index1 > index2 || (index2 >= this->size || index1 >= this->size))
         return false;
 
-    if (index1 == index2){
+    if (index1 == index2) {
         remove(index1);
         return true;
     }
@@ -215,11 +233,11 @@ bool CycleList::removeByIndexRange(int index1, int index2) {
     Node *temp_second;
 
     // find first and second nodes corresponding to indexes
-    for (int i = 0; i <= index2; i++){
+    for (int i = 0; i <= index2; i++) {
         if (i == index1)
             temp_first = temp;
 
-        if (i == index2){
+        if (i == index2) {
             temp_second = temp;
             break;
         }
@@ -233,7 +251,7 @@ bool CycleList::removeByIndexRange(int index1, int index2) {
 
     // delete
     temp = temp_first->next;
-    while (temp != temp_second->next){
+    while (temp != temp_second->next) {
         delete temp->prev;
         temp = temp->next;
         this->size--;
@@ -243,7 +261,7 @@ bool CycleList::removeByIndexRange(int index1, int index2) {
 }
 
 const int CycleList::get(int index) const {
-    if (index >= this->size) {
+    if (index > this->size) {
         std::cout << "CycleList::get: IndexOutOfBoundException" << std::endl;
         exit(600);
     }
@@ -262,11 +280,11 @@ const int CycleList::length() const {
 }
 
 bool CycleList::isEqual(CycleList list) {
-    if (this->size == list.size){
-        Node* temp1 = this->first;
-        Node* temp2 = list.first;
+    if (this->size == list.size) {
+        Node *temp1 = this->first;
+        Node *temp2 = list.first;
 
-        for (int i = 0; i < this->size; i++){
+        for (int i = 0; i < this->size; i++) {
             if (temp1->value != temp2->value) return false;
 
             temp1 = temp1->next;
@@ -314,24 +332,45 @@ int CycleList::operator-=(int index) {
     return this->remove(index);
 }
 
-CycleList CycleList::operator+(CycleList list) {
-    return CycleList();
+CycleList *CycleList::operator+(CycleList list) {
+    return merge(list);
 }
 
-CycleList CycleList::operator-(CycleList list) {
-    return CycleList();
+CycleList *CycleList::operator-(CycleList list) {
+    return subtract(list);
 }
 
-CycleList CycleList::operator=(CycleList list) {
+CycleList *CycleList::operator=(CycleList list) {
     this->removeAll();
 
-    
+    Node *temp = list.first;
+
+    for (int i = 0; i < list.size; i++) {
+        this->add(temp->value);
+        temp = temp->next;
+    }
+
+    return this;
 }
 
-CycleList CycleList::merge(CycleList list) {
-    return CycleList();
+CycleList *CycleList::merge(CycleList list) {
+    Node *temp = list.first;
+
+    for (int i = 0; i < list.size; i++) {
+        this->add(temp->value);
+        temp = temp->next;
+    }
+
+    return this;
 }
 
-CycleList CycleList::subtract(CycleList list) {
-    return CycleList();
+CycleList *CycleList::subtract(CycleList list) {
+    Node *temp = list.first;
+
+    for (int i = 0; i < list.size; i++) {
+        this->removeByValue(temp->value);
+        temp = temp->next;
+    }
+
+    return this;
 }
