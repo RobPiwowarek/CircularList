@@ -44,14 +44,27 @@ void CycleList::add(int val) {
         _new->prev = _new;
         _new->value = val;
         this->first = _new;
+        //std::cout << std::endl << "BEFORE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
     }
     else {
-        std::cout << this->first << " " << this->first->value << " " << this->first->prev << std::endl;
+        //std::cout << std::endl << "BEFORE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
 
+        Node* temp_prev;
+        temp_prev = this->first->prev;
+
+        temp_prev->next = _new;
+        _new->prev = temp_prev;
+        this->first->prev = _new;
+        _new->next = this->first;
+        /*
         this->first->prev->next = _new;
         _new->prev = this->first->prev;
         this->first->prev = _new;
         _new->next = this->first;
+         */
+
+        // z jakiegos powodu zeruja tu sie wskazniki prev i next
+        //std::cout << std::endl << "AFTER: "<<  this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
     }
 
     this->size++;
@@ -301,7 +314,7 @@ void CycleList::operator+=(int val) {
 }
 
 int CycleList::operator[](int index) {
-    return this->get(index);
+    return (this->get(index));
 }
 
 bool CycleList::operator==(CycleList list) {

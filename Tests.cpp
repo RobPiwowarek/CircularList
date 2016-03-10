@@ -54,15 +54,15 @@ bool Tests::shouldAddAtTheEndIfNoValFound() {
 }
 
 bool Tests::shouldAddOnIndex() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(7);
+    CycleList* list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(7);
 
-    list.addOnIndex(8, 2);
+    list->addOnIndex(8, 2);
 
-    if (list[2] != 8) {
-        cout << " shouldAddOnIndex - expected 8 got " << list[2] << endl;
+    if (list->get(2) != 8) {
+        cout << " shouldAddOnIndex - expected 8 got " << list->get(2) << endl;
         return false;
     }
 
@@ -70,27 +70,27 @@ bool Tests::shouldAddOnIndex() {
 }
 
 bool Tests::shouldRemove() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(7);
+    CycleList* list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(7);
 
-    int temp = list.remove(2);
+    int temp = list->remove(2);
 
-    return !(temp != 7 || list.get(2) == 7);
+    return !(temp != 7 || list->get(2) == 7);
 }
 
 bool Tests::shouldRemoveByValueRange() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(7);
-    list.add(9);
-    list.add(10);
+    CycleList* list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(7);
+    list->add(9);
+    list->add(10);
 
-    list.remove(6, 9); // nooooooo!
+    list->remove(6, 9); // nooooooo!
 
-    return list.first->value == 5 && list.first->next->value == 10;
+    return list->first->value == 5 && list->first->next->value == 10;
 }
 
 bool Tests::shouldRemoveAll() {
@@ -98,7 +98,7 @@ bool Tests::shouldRemoveAll() {
     Node *temp;
     list.add(5);
     list.add(6);
-    list.add(5);
+    list.add(7);
     list.add(9);
     list.add(5);
 
