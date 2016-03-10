@@ -26,6 +26,8 @@ void CycleList::removeAll() {
     Node *temp2;
     temp2 = this->first->next;
 
+    //std::cout << std::endl << "BEFORE REMOVVE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
+
     for (int i = 0; i < this->size; i++) {
         delete temp2->prev;
         temp2 = temp2->next;
@@ -44,10 +46,9 @@ void CycleList::add(int val) {
         _new->prev = _new;
         _new->value = val;
         this->first = _new;
-        //std::cout << std::endl << "BEFORE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
     }
     else {
-        //std::cout << std::endl << "BEFORE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
+      //  std::cout << std::endl << "BEFORE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
 
         Node* temp_prev;
         temp_prev = this->first->prev;
@@ -56,12 +57,6 @@ void CycleList::add(int val) {
         _new->prev = temp_prev;
         this->first->prev = _new;
         _new->next = this->first;
-        /*
-        this->first->prev->next = _new;
-        _new->prev = this->first->prev;
-        this->first->prev = _new;
-        _new->next = this->first;
-         */
 
         // z jakiegos powodu zeruja tu sie wskazniki prev i next
         //std::cout << std::endl << "AFTER: "<<  this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
@@ -170,17 +165,30 @@ void CycleList::remove(int min, int max) {
 }
 
 void CycleList::removeAll(int val) {
+    if (this->size == 0) {
+        return;
+    }
+
     Node *temp = this->first;
 
     for (int i = 0; i < this->size; i++) {
         if (temp->value == val) {
             temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
-            Node *_temp = temp;
-            temp = temp->prev;
-            delete _temp;
+            Node *newTemp = temp->prev;
             this->size--;
-            i--;
+            delete temp;
+            temp = newTemp;
+
+
+
+
+           /* temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+            Node *_temp = temp;
+            temp = temp->next;
+            delete _temp;
+            this->size--;*/
         }
         else
             temp = temp->next;
