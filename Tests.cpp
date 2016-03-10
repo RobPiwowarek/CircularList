@@ -98,11 +98,20 @@ bool Tests::shouldRemoveAll() {
     Node *temp;
     list->add(5);
     list->add(2);
+    list->add(5);
     list->add(7);
     list->add(6);
     list->add(5);
+    list->add(5);
+    list->add(5);
 
     list->removeAll(5);
+
+    Node *temp2 = list->first;
+    for (int i = 0; i < list->size; i++){
+        cout << temp2->value << endl;
+        temp2 = temp2->next;
+    }
 
     temp = list->first;
 

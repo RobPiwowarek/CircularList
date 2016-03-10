@@ -49,8 +49,6 @@ void CycleList::add(int val) {
         this->first = _new;
     }
     else {
-      //  std::cout << std::endl << "BEFORE: " << this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
-
         Node* temp_prev;
         temp_prev = this->first->prev;
 
@@ -58,9 +56,6 @@ void CycleList::add(int val) {
         _new->prev = temp_prev;
         this->first->prev = _new;
         _new->next = this->first;
-
-        // z jakiegos powodu zeruja tu sie wskazniki prev i next
-        //std::cout << std::endl << "AFTER: "<<  this->first << " " << this->first->value << " " << this->first->prev << " " << this->first->next << std::endl;
     }
 
     this->size++;
@@ -182,7 +177,7 @@ void CycleList::remove(int min, int max) {
 void CycleList::removeAll(int val) {
     Node *temp = this->first;
 
-    for (int i = 0; i < this->size; i++) {
+    for (int i = 0; i <= this->size; i++) {
         if (temp->value == val) {
 
             temp->prev->next = temp->next;
@@ -195,19 +190,14 @@ void CycleList::removeAll(int val) {
             Node *newTemp = temp->prev;
             this->size--;
 
+
             if (temp == this->first){
                 this->first = temp->next;
             }
 
             delete temp;
             temp = newTemp;
-
-           /* temp->prev->next = temp->next;
-            temp->next->prev = temp->prev;
-            Node *_temp = temp;
-            temp = temp->next;
-            delete _temp;
-            this->size--;*/
+            i--;
         }
         else
             temp = temp->next;
@@ -395,6 +385,9 @@ CycleList *CycleList::operator-(CycleList* list) {
 }
 
 CycleList *CycleList::operator=(CycleList* list) {
+    if (this == list)
+        return this;
+
     this->removeAll();
 
     Node *temp = list->first;
