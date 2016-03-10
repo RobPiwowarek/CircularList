@@ -94,113 +94,110 @@ bool Tests::shouldRemoveByValueRange() {
 }
 
 bool Tests::shouldRemoveAll() {
-    CycleList list;
+    CycleList *list = new CycleList();
     Node *temp;
-    list.add(2);
-    list.add(5);
-    list.add(7);
-    list.add(5);
-    list.add(5);
+    list->add(5);
+    list->add(2);
+    list->add(7);
+    list->add(6);
+    list->add(5);
 
-    list.removeAll(5);
+    list->removeAll(5);
 
-    temp = list.first;
+    temp = list->first;
 
-   /* if (temp->value == 5) return false;
+   if (temp->value == 5) return false;
 
     temp = temp->next;
 
-    while (temp != list.first) {
+    while (temp != list->first) {
         if (temp->value == 5)
             return false;
 
         temp = temp->next;
     }
 
-    return true;*/
+    return true;
 }
 
 bool Tests::shouldRemoveByValue() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(5);
-    list.add(9);
-    list.add(5);
+    CycleList* list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(5);
+    list->add(9);
+    list->add(5);
 
-    list.removeByValue(5);
+    list->removeByValue(5);
 
-    return !(list.first->value != 6 || list.first->next->value != 5);
+    return (list->first->value == 6 && list->first->next->value == 5);
 }
 
 bool Tests::shouldRemoveDuplicates() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(5);
-    list.add(6);
-    list.add(5);
+    CycleList* list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(5);
+    list->add(6);
+    list->add(5);
 
-    list.removeDuplicates();
+    list->removeDuplicates();
 
-    return !(list.first->value != 5 || list.first->next->value != 6 || list.first->next->next != list.first);
-
+    return (list->size == 2 && list->first->value == 5 && list->first->next->value == 6);
 }
 
 bool Tests::shouldRemoveByIndexRange() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(7);
-    list.add(9);
-    list.add(10);
+    CycleList* list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(7);
+    list->add(9);
+    list->add(10);
 
-    list.removeByIndexRange(1, 3);
+    list->removeByIndexRange(1, 3);
 
-    return !(list.first->value != 5 || list.first->value != 10);
+    return list->first->value == 5 && list->first->next->value == 10;
 }
 
 bool Tests::shouldGet() {
-    CycleList list;
-    list.add(5);
-    list.add(6);
-    list.add(7);
+    CycleList *list = new CycleList();
+    list->add(5);
+    list->add(6);
+    list->add(7);
 
-    return list.get(-2) == 7 && list.get(2) == 7;
+    return list->get(2) == 7;
 }
 
 bool Tests::shouldBeEqual() {
-    CycleList list1, list2;
-    list1.add(2);
-    list1.add(5);
-    list2.add(2);
-    list2.add(5);
+    CycleList *list1 = new CycleList(), *list2 = new CycleList();
+    list1->add(2);
+    list1->add(5);
+    list2->add(2);
+    list2->add(5);
 
-    return !(list1 != list2);
-
+    return *list1 == *list2;
 }
 
 bool Tests::shouldBeSmaller() {
-    CycleList list1, list2;
-    list1.add(2);
-    list1.add(3);
-    list2.add(5);
-    list2.add(6);
-    list2.add(7);
+    CycleList *list1 = new CycleList(), *list2 = new CycleList();
+    list1->add(2);
+    list1->add(3);
+    list2->add(5);
+    list2->add(6);
+    list2->add(7);
 
-    return !(!(list1 < list2) || !(list1 <= list2));
-
+    return !(!(*list1 < *list2) || !(*list1 <= *list2));
 }
 
 bool Tests::shouldBeBigger() {
-    CycleList list1, list2;
-    list1.add(2);
-    list1.add(3);
-    list2.add(5);
-    list2.add(6);
-    list2.add(7);
+    CycleList *list1 = new CycleList(), *list2 = new CycleList();
+    list1->add(2);
+    list1->add(3);
+    list1->add(5);
+    list2->add(6);
+    list2->add(7);
 
-    return !((list1 < list2) || list1 <= list2);
+    return (*list1 > *list2 || *list1 >= *list2);
 
 }
 

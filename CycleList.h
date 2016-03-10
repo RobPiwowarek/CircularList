@@ -42,29 +42,29 @@ public:
 
     const int length() const;
 
-    bool isEqual(CycleList list); // returns true if equal, false otherwise
+    bool isEqual(CycleList& list); // returns true if equal, false otherwise
 
     void operator+=(int val); // add(val)
-    bool operator==(CycleList list); // compare
-    bool operator!=(CycleList list); // compare
-    bool operator<=(CycleList list); // length <=
-    bool operator<(CycleList list);
+    bool operator==(CycleList& list); // compare
+    bool operator!=(CycleList& list); // compare
+    bool operator<=(CycleList& list); // length <=
+    bool operator<(CycleList& list);
 
-    bool operator>=(CycleList list);
+    bool operator>=(CycleList& list);
 
-    bool operator>(CycleList list);
+    bool operator>(CycleList& list);
 
     int operator-=(int index); // remove by index
 
     int operator[](int index); // access by index
-    CycleList *operator+(CycleList list); // merge()
-    CycleList *operator-(CycleList list); // subtract()
-    CycleList *operator=(CycleList list); // copy
+    CycleList *operator+(CycleList* list); // merge()
+    CycleList *operator-(CycleList* list); // subtract()
+    CycleList *operator=(CycleList* list); // copy
 
 private:
     void removeAll(); // deletes every node
-    CycleList *merge(CycleList list); // merge list with this list
-    CycleList *subtract(CycleList list); // subtract one list from this list
+    CycleList *merge(CycleList* list); // merge list with this list
+    CycleList *subtract(CycleList* list); // subtract one list from this list
 };
 
 
